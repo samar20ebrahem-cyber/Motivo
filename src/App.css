@@ -1,0 +1,13 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: linear-gradient(to right, #DBF4ED , #E2F0F7,#E6EEFD );
+    width: 96%;
+    margin-inline: auto;
+    margin-top: 10px;
+
+}

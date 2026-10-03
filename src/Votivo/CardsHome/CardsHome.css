@@ -1,0 +1,37 @@
+.cards{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 520px;
+    gap:20px;
+    box-sizing: border-box;
+    position: absolute;
+    right: 40px;
+    top: 140px;
+}
+
+.card{
+    border: 1px solid black;
+    width: 100%;
+    height: 130px;
+    padding: 20px 16px;
+    box-shadow: #f2f4ff 3px 3px 12px;
+    border-radius: 20px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    background-color: white;
+    transition: all 1s;
+    border: #6370D6 1px solid;
+}
+.card:hover{
+    background: #c6c7ce;
+}
+.icon{
+    color:#6370D6;
+    font-size: medium;
+    margin-bottom: 20px;
+
+}
+.desc{
+  font-size: medium;
+}
+
