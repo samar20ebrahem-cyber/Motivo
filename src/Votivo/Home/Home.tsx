@@ -1,4 +1,5 @@
-import imgHome from '../../assets/images/home1.png';
+import imgHome from '../../assets/images/home1.png'
+import { Link } from 'react-router-dom'
 export function Home() {
     return (
         <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-12 px-6 py-24">
@@ -22,9 +23,9 @@ export function Home() {
                     <li>Memorize better.</li>
                     <li>Achieve more.</li>
                 </ul>
-                <button className="mt-8 inline-flex items-center justify-center gap-3 rounded-xl bg-[#34483A] px-8 py-4 text-base font-semibold text-[#FCF4DC] shadow-lg shadow-[#34483A]/20 transition-all duration-300 hover:-translate-y-1 hover:bg-[#28382D] hover:shadow-xl active:translate-y-0">
+                <Link to="/login" className="mt-8 inline-flex items-center justify-center gap-3 rounded-xl bg-[#34483A] px-8 py-4 text-base font-semibold text-[#FCF4DC] shadow-lg shadow-[#34483A]/20 transition-all duration-300 hover:-translate-y-1 hover:bg-[#28382D] hover:shadow-xl active:translate-y-0">
                     Start Learning
-                </button>
+                </Link>
             </div>
 
             <div className="hero-image">

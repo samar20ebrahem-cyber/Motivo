@@ -1,7 +1,10 @@
 import './App.css'
 import { LandingPage } from './Votivo/landingPage/landingPage.tsx'
-import { Navbar } from '../src/Votivo/Navbar/Navbar.tsx'
+import { Navbar } from './Votivo/Navbar/Navbar.tsx'
+import { Login } from './Votivo/Login/Login.tsx'
+import { SignUp } from './Votivo/SignUp/SignUp.tsx'
 import { useEffect, useState } from "react"
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 function App() {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -19,10 +22,15 @@ function App() {
     )
   }
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      <LandingPage />
-    </>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+
+    </BrowserRouter>
   )
 }
 
