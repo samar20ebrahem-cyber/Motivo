@@ -1,6 +1,5 @@
 import './App.css'
-import { Home } from './Votivo/Home/Home.tsx'
-// import { CardsHome } from '../src/Votivo/CardsHome/CardsHome.tsx'
+import { LandingPage } from './Votivo/landingPage/landingPage.tsx'
 import { Navbar } from '../src/Votivo/Navbar/Navbar.tsx'
 import { useEffect, useState } from "react"
 function App() {
@@ -22,8 +21,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {/* <CardsHome /> */}
-      <Home />
+      <LandingPage />
     </>
   )
 }

@@ -1,2 +1,30 @@
 @import "tailwindcss";
 
+
+:root {
+  /* Backgrounds */
+  --color-background: #F7F5EF;
+  --color-surface: #FFFFFF;
+  --color-soft: #E8EDE5;
+
+  /* Brand */
+  --color-primary: #667B62;
+  --color-primary-dark: #34483A;
+
+  /* Supporting */
+  --color-sand: #D9CBB7;
+
+  /* Text */
+  --color-text: #343832;
+  --color-muted: #85877F;
+
+  /* UI */
+  --color-border: #E6E4DC;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Outfit', sans-serif;
+}
