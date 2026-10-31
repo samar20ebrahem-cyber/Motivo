@@ -1,5 +1,45 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { supabase } from '../../Supabase/supabase'
+import { useNavigate } from 'react-router-dom'
 export function Login() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [message, setMessage] = useState('')
+
+    const navigate = useNavigate()
+
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (!email.trim() || !password) {
+            setMessage('Please enter your email and password')
+            return
+        }
+
+        try {
+            setLoading(true)
+            setMessage('')
+
+            const { error } = await supabase.auth.signInWithPassword({
+                email: email.trim(),
+                password: password,
+            })
+
+            if (error) {
+                setMessage(error.message)
+                return
+            }
+
+            navigate('/')
+
+        } catch {
+            setMessage('Something went wrong. Please try again.')
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <>
             <section className="min-h-screen bg-[#FCF4DC] px-6 py-8">
@@ -23,16 +63,20 @@ export function Login() {
                         <div className="h-px flex-1 bg-[#34483A]/20"></div>
                     </div>
 
-                    <form className="mt-6 flex flex-col gap-4">
+                    <form
+                        className="mt-6 flex flex-col gap-4"
+                        onSubmit={handleLogin}>
 
                         <input
                             type="email"
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email"
                             className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
                         />
 
                         <input
                             type="password"
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
                         />
@@ -43,9 +87,16 @@ export function Login() {
                                 Forgot password?
                             </a>
                         </div>
-
-                        <button type="submit" className="mt-2 w-full rounded-xl bg-[#34483A] px-4 py-3 font-semibold text-[#FCF4DC] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#28382D] hover:shadow-md">
-                            Sign In
+                        {message && (
+                            <p className="text-center text-sm text-[#34483A]">
+                                {message}
+                            </p>
+                        )}
+                        <button
+                            disabled={loading}
+                            type="submit"
+                            className="mt-2 w-full rounded-xl bg-[#34483A] px-4 py-3 font-semibold text-[#FCF4DC] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#28382D] hover:shadow-md">
+                            {loading ? 'Signing In...' : 'Sign In'}
                         </button>
 
                     </form>

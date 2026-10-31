@@ -1,5 +1,55 @@
 import { Link } from 'react-router-dom'
+import { supabase } from '../../Supabase/supabase'
+import { useState } from 'react'
 export function SignUp() {
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [message, setMessage] = useState('')
+    const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!fullName || !email || !password || !confirmPassword) {
+            alert("Please fill in all fields")
+            return
+        }
+        if (password !== confirmPassword) {
+            alert('Passwords do not match')
+            return
+        }
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters')
+            return
+        }
+
+        try {
+            setLoading(true)
+            setMessage('')
+            const { error } = await supabase.auth.signUp({
+                email: email.trim(),
+                password: password,
+                options: {
+                    data: {
+                        full_name: fullName.trim(),
+                    },
+                },
+            })
+            setLoading(false)
+            if (error) {
+                setMessage(error.message)
+                return
+            }
+
+            setMessage('Account created successfully! Please check your email.')
+        }
+        catch {
+            setMessage('Something went wrong. Please try again.')
+
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <>
             <section className="min-h-screen bg-[#FCF4DC] px-6 py-8">
@@ -18,13 +68,48 @@ export function SignUp() {
                         <span className="text-xs text-[#667368]">OR USE EMAIL</span>
                         <div className="h-px flex-1 bg-[#34483A]/20"></div>
                     </div>
-                    <form className="mt-6 flex flex-col gap-4">
-                        <input type="text" placeholder='Full Name' className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10" />
-                        <input type="email" placeholder='Email' className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10" />
+                    <form className="mt-6 flex flex-col gap-4" onSubmit={handleSignUp}>
+                        <input
+                            type="text"
+                            placeholder='Full Name'
+                            onChange={(e) => setFullName(e.target.value)}
+                            className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
+                        />
 
-                        <input type="password" placeholder='Password' className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10" />
-                        <input type="password" placeholder='Confirm Password' className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10" />
-                        <button type="submit" className="mt-2 w-full rounded-xl bg-[#34483A] px-4 py-3 font-semibold text-[#FCF4DC] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#28382D] hover:shadow-md">Create Account</button>
+                        <input
+                            type="email"
+                            placeholder='Email'
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
+                        />
+
+                        <input
+                            type="password"
+                            placeholder='Password'
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
+                        />
+
+                        <input
+                            type="password"
+                            placeholder='Confirm Password'
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full rounded-xl border border-[#34483A]/20 bg-white px-4 py-3 text-sm text-[#34483A] outline-none transition-all duration-300 placeholder:text-[#667368]/70 focus:border-[#34483A] focus:ring-2 focus:ring-[#34483A]/10"
+                        />
+
+                        {message && (
+                            <p className="text-sm text-center text-[#34483A]">
+                                {message}
+                            </p>
+                        )}
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="mt-2 w-full rounded-xl bg-[#34483A] px-4 py-3 font-semibold text-[#FCF4DC] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#28382D] hover:shadow-md"
+                        >
+                            {loading ? 'Creating Account...' : 'Create Account'}
+                        </button>
                     </form>
 
                     <p className="mt-6 text-center text-sm text-[#667368]">

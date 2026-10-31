@@ -23,7 +23,7 @@ export function Home() {
                     <li>Memorize better.</li>
                     <li>Achieve more.</li>
                 </ul>
-                <Link to="/login" className="mt-8 inline-flex items-center justify-center gap-3 rounded-xl bg-[#34483A] px-8 py-4 text-base font-semibold text-[#FCF4DC] shadow-lg shadow-[#34483A]/20 transition-all duration-300 hover:-translate-y-1 hover:bg-[#28382D] hover:shadow-xl active:translate-y-0">
+                <Link to="/login" className="mt-8 inline-flex items-center justify-center gap-3 rounded-xl bg-[#34483A] px-10 py-4 text-base font-semibold text-[#FCF4DC] shadow-lg shadow-[#34483A]/20 transition-all duration-300 hover:-translate-y-1 hover:bg-[#28382D] hover:shadow-xl active:translate-y-0">
                     Start Learning
                 </Link>
             </div>
