@@ -1,10 +1,11 @@
 import './App.css'
-import { LandingPage } from './Votivo/landingPage/landingPage.tsx'
-import { Navbar } from './Votivo/Navbar/Navbar.tsx'
-import { Login } from './Votivo/Login/Login.tsx'
-import { SignUp } from './Votivo/SignUp/SignUp.tsx'
+// import { LandingPage } from './Votivo/landingPage/landingPage.tsx'
+// import { Navbar } from './Votivo/Navbar/Navbar.tsx'
+// import { Login } from './Votivo/Login/Login.tsx'
+// import { SignUp } from './Votivo/SignUp/SignUp.tsx'
+import { ShowDashboard } from './Votivo/Dashboard/ShowDashboard.tsx'
 import { useEffect, useState } from "react"
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, BrowserRouter } from 'react-router-dom'
 function App() {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -22,15 +23,17 @@ function App() {
     )
   }
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
+    <>
+      <BrowserRouter>
+        {/*  <Navbar /> Route,*/}
+        <Routes>
+          {/*  <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
-
-    </BrowserRouter>
+        <Route path="/signup" element={<SignUp />} />*/}
+        </Routes>
+      <ShowDashboard />
+      </BrowserRouter>
+    </>
   )
 }
 
